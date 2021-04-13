@@ -16,11 +16,14 @@
                 <div class="nav-item dropdown float-right">
                     <h6 class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Client {{ $LoggedUserInfo['name'] }}</h6>
                     <div class="dropdown-menu">
-                        <a href="{{route('dashboard')}}" class="dropdown-item" >Home </a>
+                        <a href="{{route('/')}}" class="dropdown-item" >Home </a>
+                        <a href="{{route('dashboard')}}" class="dropdown-item" >Dashboard </a>
                         <a href="{{route('appointment')}}" class="dropdown-item" >Take a Appointment </a>
                         <a href="{{route('appointmentInfo')}}" class="dropdown-item" >Yours Appointments </a>
                       <a class="dropdown-item" >{{ $LoggedUserInfo['name'] }} </a>
                       <a class="dropdown-item" >{{ $LoggedUserInfo['email'] }}</a>
+                      <a href="{{route('client.edit')}}" class="dropdown-item" >Update Profile</a>
+
                       <a class="dropdown-item" href="{{route('auth.logout')}}">Logout </a>
                       
                 </div>
@@ -71,12 +74,12 @@
                                 @foreach ($appointments as $appointment )
                                 
                                 <tr>
-                                    <td> {{$appointment->name}} </td>
-                                    <td> {{$appointment->email}} </td>
-                                    <td> {{$appointment->mobile}} </td>
+                                    <td> {{ucwords($appointment->Client->name)}} </td>
+                                    <td> {{$appointment->Client->email}} </td>
+                                    <td> {{$appointment->Client->mobile}} </td>
                                     <td> {{$appointment->bookingDate}} </td>
                                     <td> {{$appointment->noPerson}} </td>
-                                    <td> {{$appointment->Advisor->name}} </td>
+                                    <td> {{ucwords($appointment->Advisor->name)}} </td>
                                     
                                          @if ($appointment->status=="Declined")
                                             <td class=" text-danger">{{$appointment->status}}</td>

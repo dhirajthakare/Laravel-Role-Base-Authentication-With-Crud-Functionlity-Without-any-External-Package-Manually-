@@ -25,7 +25,7 @@
           
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @if(session('LoggedUser'))
-                        <a href="{{Route('auth.login')}}" class="text-sm text-gray-700 underline">Home</a>
+                        <a href="{{Route('auth.login')}}" class="text-sm text-gray-700 underline">Your Account</a>
                    @endif
                    @if(!session('LoggedUser'))
                         <a href="{{Route('auth.login')}}" class="text-sm text-gray-700 underline">Log in</a>

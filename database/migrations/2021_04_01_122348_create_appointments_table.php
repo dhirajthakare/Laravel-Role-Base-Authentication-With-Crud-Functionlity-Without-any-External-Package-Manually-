@@ -15,14 +15,13 @@ class CreateAppointmentsTable extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('mobile');
             $table->string('bookingDate');
             $table->bigInteger('noPerson');
             $table->rememberToken()->nullable();
-            $table->bigInteger('advisorId');
-            $table->bigInteger('clientId');
+            $table->bigInteger('advisorId')->unsigned();
+            $table->foreign('advisorId')->references('id')->on('users');
+            $table->bigInteger('clientId')->unsigned();
+            $table->foreign('clientId')->references('id')->on('users');
             $table->string('status')->default('Waiting');
             $table->timestamps();
         });
@@ -36,5 +35,6 @@ class CreateAppointmentsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('appointments');
+        
     }
 }

@@ -10,14 +10,31 @@
 </head>
 <body>
     
-    <div class="container" style="margin-top:45px">
-        <div class="col-4 offset-4 card p-4" >
+    <div class="container" style="margin-top:15px;">
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Welcome</a>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="{{Route('/')}}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{Route('auth.register')}}">Register</a>
+                    </li>
+                    
+                  </ul>
+                </div>
+              </nav>
+        </div>
+        <div class="col-4 offset-4 card p-5"  style="margin-top:45px">
                 <h4>Login Here</h4><br>
                 <form action="{{route('auth.check')}}" method="POST">
 
                     @if (Session::get('fail'))
                         
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger alert">
                         {{Session::get('fail')}}
                     </div>
                         
@@ -39,7 +56,7 @@
                         <button type="submit" class="btn btn-primary form-control">Submit </button>
                     </div>
                     <br>
-                    <span><a href="{{ route('auth.register')}}"> If You Dont Have Account Then Create Account </a></span>
+                    <span><a href="{{ route('auth.register')}}"> If You Don't Have Account Then Create Account .. </a></span>
                 </form>
         </div>
     </div>

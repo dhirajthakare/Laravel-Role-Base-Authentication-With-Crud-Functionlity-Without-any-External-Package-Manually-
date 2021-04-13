@@ -29,69 +29,53 @@ class DashboardController extends Controller
 
                  }
     }
-    public function appointment(){
-      
-        $checkrole = Users_roles::where('users_id','=',session(('LoggedUser')))->first();
-                    if($checkrole->roles_id==1){
-
-                    //     $data = ['LoggedUserInfo'=>User::where('id','=',session('LoggedUser'))->first()];
-                    //  return view('Advisor.appointment',$data);
-                    return redirect()->back();
-
-                 }elseif($checkrole->roles_id==2){
-                    $role = Roles::where('name','=','Advisor')->with('advisors')->get();
-                    // dd($role);
-                    $data = ['LoggedUserInfo'=>User::where('id','=',session('LoggedUser'))->first()];
-                    return view('Client.appointment',compact('role'),$data);
-
-                 }
+     public function edit(){
+        $checkrole = Users_roles::where('users_id','=',session('LoggedUser'))->first();
+        if($checkrole->roles_id==1){
+            $data = ['LoggedUserInfo'=>User::where('id','=',session('LoggedUser'))->first()];
+            return view('Advisor.Edit',$data);
+        }elseif($checkrole->roles_id==2){
+             $data = ['LoggedUserInfo'=>User::where('id','=',session('LoggedUser'))->first()];
+            return view('Client.Edit',$data);
+     }
     }
-    public function appointmentInfo(){
-      
-        $checkrole = Users_roles::where('users_id','=',session(('LoggedUser')))->first();
-                    if($checkrole->roles_id==1){
-                    //    return redirect()->back();
+     public function update(request $request){
 
-                    $data = ['LoggedUserInfo'=>User::where('id','=',session('LoggedUser'))->first()];
-                    // dd($data);
-                    $appointments = Appointment::where('advisorId','=',$data['LoggedUserInfo']->id)->get();
-                    
-                    return view('Advisor.appointment',compact('appointments'),$data);
+            $request->validate([
+                'name'=>'required |min:3',
+            'email'=>'required|email',
+            'mobile'=>'required|regex:/[7-9][0-9]{9}/',
+            ]);
 
-                 }elseif($checkrole->roles_id==2){
-                    $data = ['LoggedUserInfo'=>User::where('id','=',session('LoggedUser'))->first()];
-                    $appointments = Appointment::where('clientId','=',$data['LoggedUserInfo']->id)->with('Advisor')->get();
-                    // dd($appointments);
-                    return view('Client.appointmentInfo',compact('appointments'),$data);
+            $update = User::where('id','=',$request->clientId)->update([
+                'name'=>$request->name,
+                'email'=>$request->email,
+                'mobile'=>$request->mobile,
 
-                 }
-    }
-    public function delete($id){
+            ]);
+            if($update){
 
-        $checkrole = Users_roles::where('users_id','=',session(('LoggedUser')))->first();
-        if($checkrole->roles_id==2){
-
-            $delete =Appointment::where('id',$id)->delete();
-            if($delete){
-                return redirect('appointmentInfo')->with('success',' Your Appointment Deleted ');
-            }else {
-                return redirect('appointmentInfo')->with('fail',' Somthing wrong ');
+                    return redirect()->back()->with('success','update user Successfully ');
+            }else{
+                return redirect()->back()->with('fail','something wrong try again ');
             }
-        }else {
-            return back();
-        }
-       
 
-    }
+            $checkrole = Users_roles::where('users_id','=',session('LoggedUser'))->first();
+            
+                $update = User::where('id','=',$request->clientId)->update([
+                    'name'=>$request->name,
+                    'email'=>$request->email,
+                    'mobile'=>$request->mobile,
+    
+                ]);
+                if($update){
+    
+                        return redirect()->back()->with('success','update user Successfully ');
+                }else{
+                    return redirect()->back()->with('fail','something wrong try again ');
+                } 
+            
 
-    // composer require barryvdh/laravel-debugbar --dev
-    public function update(Request $request){
-
-        $user = Appointment::where('id','=',$request->token)->update(['status'=>$request->status]);
-        if($user){
-            return redirect('appointmentInfo')->with('success','Client status change');
-        }else{
-            return redirect('appointmentInfo')->with('fail','Something wrong try again');
-        }
-    }
+     }
+    
 }

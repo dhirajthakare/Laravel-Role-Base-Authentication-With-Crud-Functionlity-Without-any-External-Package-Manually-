@@ -22,6 +22,7 @@ class RegisterController extends Controller
             'name'=>'required |min:3',
             'email'=>'required|email|unique:users',
             'password'=>'required|min:6',
+            'mobile'=>'required|regex:/[7-9][0-9]{9}/',
             'role'=>'required | min:5'
         ],[
             'role.min'=>"Role should be selected either Advisor Or Client."
@@ -30,6 +31,7 @@ class RegisterController extends Controller
         User::create([
             'name'=>$request->input('name'),
             'email'=>$request->input('email'),
+            'mobile'=>$request->input('mobile'),
             'password'=>Hash::make($request->input('password')),
 
         ]);

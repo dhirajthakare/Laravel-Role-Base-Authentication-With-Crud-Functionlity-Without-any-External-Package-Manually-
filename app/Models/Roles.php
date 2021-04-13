@@ -11,7 +11,7 @@ class Roles extends Model
 
     public function advisors()
     {
-        return $this->belongsToMany('App\Models\User', 'App\Models\Users_roles','roles_id','users_id');
+        return $this->belongsToMany(User::class, Users_roles::class,'roles_id','users_id');
     }
 }
 

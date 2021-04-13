@@ -30,15 +30,15 @@
             <h4 class="text-center p-1">Client Dashboard</h4>
         </div>
         </div>
-            
+        
     
 
 <div class=" col-6 offset-3 card p-5 mt-5">
   
     
     
-    <h4>Get Appointment</h4><br>
-<form action = "{{Route('getappointment')}}" method = "post">
+    <h4>Update Profile</h4><br>
+<form action="{{route('role.update')}}" method = "post">
     @if (session('success'))
 
     <div class="alert alert-success">
@@ -54,57 +54,25 @@
         
     @endif
     <div class="form-group">
-        {{-- <label for="name">Enter Name</label> --}}
+        <label for="name">Enter Name </label>
 @csrf   
         <input type="hidden" class="form-control" name="clientId"  value="{{ $LoggedUserInfo['id'] }}">
-        <input type="hidden" class="form-control" name="name" placeholder="Enter Name" value="{{ $LoggedUserInfo['name'] }}">
+        <input type="text" class="form-control" name="name" placeholder="Enter Name" value="{{ $LoggedUserInfo['name'] }}">
         <span class="text-danger">@error('name') {{$message}} @enderror</span>
       </div>
     <div class="form-group">
-        {{-- <label for="email">Email address</label> --}}
-        <input type="hidden" class="form-control" name="email" placeholder="Enter email" value="{{ $LoggedUserInfo['email'] }}" >
+        <label for="email">Email Address </label>
+        <input type="text" class="form-control" name="email" placeholder="Enter email" value="{{ $LoggedUserInfo['email'] }}" >
         <span class="text-danger">@error('email') {{$message}} @enderror</span>
       </div>
       <div class="form-group">
-        {{-- <label for="mobile">Mobile No </label> --}}
-        <input type="hidden" class="form-control" name="mobile" placeholder="Enter Mobile Number" value="{{ $LoggedUserInfo['mobile'] }}" >
+        <label for="mobile">Mobile No </label>
+        <input type="text" class="form-control" name="mobile" placeholder="Enter Mobile Number" value="{{ $LoggedUserInfo['mobile'] }}" >
         <span class="text-danger">@error('mobile') {{$message}} @enderror</span>
       </div>
+   
       <div class="form-group">
-        <label for="bookingDate">boking Date</label>
-        <input type="text" class="form-control" id="bookingDate" name="bookingDate" placeholder="Enter the date" value="{{old('bookingDate')}}"  autocomplete="off">
-        <span class="text-danger">@error('bookingDate') {{$message}} @enderror</span>
-      </div>
-      <div class="form-group">
-        <label for="NoPerson">Number of Person</label>
-        <input type="type" class="form-control" name="noPerson" placeholder="Number of persons "value="{{old('noPerson')}}" >
-        <span class="text-danger">@error('noPerson') {{$message}} @enderror</span>
-
-      </div>
-      
-      <div class="input-group">
-          
-       <select class="form-control" name="advisorId" >
-        <option >Select Advisor</option>
-        @foreach ($role as $role)
-
-            @foreach ($role->advisors as $user)
-
-            @if (old('advisorId') == $user->id)
-            <option value="{{$user->id}}" selected>{{$user->name}}</option>
-            @else
-            <option value="{{$user->id}}">{{$user->name}}</option>
-
-            @endif
-            @endforeach
-        @endforeach
-              
-       </select><br>
-      </div>
-      <span class="text-danger">@error('advisorId') {{$message}} @enderror</span>
-
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary form-control mt-3">Submit</button>
+        <button type="submit" class="btn btn-primary form-control mt-3">Update</button>
       </div>
 </form>
 </div>

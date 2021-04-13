@@ -11,8 +11,25 @@
 <body>
     
      
-    <div class="container" style="margin-top:45px">
-        <div class="col-4 offset-4 " >
+    <div class="container" style="margin-top:15px">
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Welcome</a>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="{{Route('/')}}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{Route('auth.login')}}">Login</a>
+                    </li>
+                    
+                  </ul>
+                </div>
+              </nav>
+        </div>
+        <div class="col-5 offset-3 card p-5 " style="margin-top: 45px" >
                 <h4>Register Here</h4><br>
                 <form action="{{route('auth.create')}}" method="POST">
                     @if (Session::get('success'))
@@ -38,6 +55,11 @@
                         <span class="text-danger"> @error('email'){{$message}}@enderror </span>
                     </div>
                     <div class="form-group">
+                        <label for="mobile">Mobile</label>
+                        <input type="text" name="mobile" class="form-control" value="{{old('mobile')}}">
+                        <span class="text-danger"> @error('mobile'){{$message}}@enderror </span>
+                    </div>
+                    <div class="form-group">
                         <label for="password">Password</label>
                         <input type="password" name="password" class="form-control">
                         <span class="text-danger"> @error('password'){{$message}}@enderror </span>
@@ -58,7 +80,7 @@
                         <button type="submit" class="btn btn-primary form-control">Submit </button>
                     </div>
                     <br>
-                    <span><a href="{{ route('auth.login')}}"> If You  Have Account the Sign In Here </a></span>
+                    <span><a href="{{ route('auth.login')}}"> If You  Have Account then Sign In Here .. </a></span>
                 </form>
         </div>
     </div>

@@ -10,9 +10,6 @@ class Appointment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'email',
-        'mobile',
         'bookingDate',
         'noPerson',
         'advisorId',
@@ -22,6 +19,10 @@ class Appointment extends Model
 
     public function Advisor()
     {
-        return $this->belongsTo('App\Models\User', 'advisorId');
+        return $this->belongsTo(User::class, 'advisorId');
+    }
+    public function Client()
+    {
+        return $this->belongsTo(User::class, 'clientId');
     }
 }

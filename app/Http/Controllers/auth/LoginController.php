@@ -64,7 +64,6 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
 
-    
             $userinfo = User::where('email','=',$request->input('email'))->first();
             session()->put('LoggedUser',$userinfo->id);
             return redirect('dashboard');
@@ -91,13 +90,8 @@ class LoginController extends Controller
         if(session()->has('LoggedUser')){
 
             session()->pull('LoggedUser');
-            return redirect('auth/login');
+            return redirect('/');
             
-        }elseif(session()->has('ClientLoggedUser')){
-
-            session()->pull('ClientLoggedUser');
-            return redirect('auth/login');
-
         }else{
             return redirect('auth/login');
 
